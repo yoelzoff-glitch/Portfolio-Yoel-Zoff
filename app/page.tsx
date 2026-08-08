@@ -165,12 +165,12 @@ export default function Home() {
 
       {/* Featured Projects Section */}
       <section className="container mx-auto px-4 mb-24 max-w-6xl">
-        <div className="flex justify-between items-end mb-12">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-8 sm:mb-12">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">Proyectos Destacados</h2>
             <p className="text-muted-foreground">Una selección de sistemas empresariales e integraciones premium.</p>
           </div>
-          <Button variant="ghost" className="hover:gap-2 group transition-all" asChild>
+          <Button variant="ghost" className="hover:gap-2 group transition-all w-full sm:w-auto justify-center sm:justify-start" asChild>
             <Link href="/projects">
               Ver todos los proyectos <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
             </Link>

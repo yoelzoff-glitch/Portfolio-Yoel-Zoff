@@ -76,13 +76,13 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
       </div>
 
       {/* Navigation Thumbnails */}
-      <div className="flex gap-4 justify-center flex-wrap">
+      <div className="flex gap-3 sm:gap-4 justify-start sm:justify-center overflow-x-auto sm:flex-wrap pb-4 sm:pb-0 hide-scrollbar snap-x snap-mandatory px-1 -mx-1">
         {images.map((img, index) => (
           <button
             key={index}
             onClick={() => setActiveIndex(index)}
             className={cn(
-              "relative w-28 h-16 rounded-lg overflow-hidden border-2 bg-zinc-950 transition-all duration-200 cursor-pointer shadow-sm hover:scale-[1.03] active:scale-95 focus:outline-none",
+              "relative shrink-0 w-24 sm:w-28 h-14 sm:h-16 rounded-lg overflow-hidden border-2 bg-zinc-950 transition-all duration-200 cursor-pointer shadow-sm hover:scale-[1.03] active:scale-95 focus:outline-none snap-center",
               activeIndex === index 
                 ? "border-primary ring-2 ring-primary/20 scale-[1.03] opacity-100" 
                 : "border-border/50 opacity-60 hover:opacity-100"

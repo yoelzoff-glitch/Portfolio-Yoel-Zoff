@@ -1248,9 +1248,9 @@ export default async function ProjectDetailPage(props: { params: Promise<{ slug:
               {project.description}
             </p>
           </div>
-          <div className="flex gap-3 shrink-0">
+          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0 mt-4 md:mt-0">
             {project.demoUrl && project.demoUrl !== "#" && (
-              <Button asChild>
+              <Button asChild className="w-full sm:w-auto">
                 <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="cursor-pointer shadow-md">
                   <ExternalLink className="mr-2 h-4 w-4" />
                   Ver Demo
@@ -1258,7 +1258,7 @@ export default async function ProjectDetailPage(props: { params: Promise<{ slug:
               </Button>
             )}
             {project.githubUrl && project.githubUrl !== "#" && (
-              <Button variant="outline" asChild>
+              <Button variant="outline" asChild className="w-full sm:w-auto">
                 <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
                   <FaGithub className="mr-2 h-4 w-4" />
                   Código Fuente
