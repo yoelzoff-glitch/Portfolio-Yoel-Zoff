@@ -15,6 +15,7 @@ const featuredProjects = [
     description: "Sistema SaaS multitenant para gestión integral de stock, automatización de ventas e integraciones avanzadas.",
     imageUrl: "/images/klyvo imagen portada.png",
     technologies: ["Next.js", "Supabase", "OpenAI", "Mercado Libre API", "WhatsApp API"],
+    status: "En Testeo",
   },
   {
     id: "2",
@@ -23,6 +24,7 @@ const featuredProjects = [
     description: "SaaS de gestión comercial con cuatro portales especializados (Admin, Vendedores, Clientes, Contadores), facturación oficial AFIP e integración de cobros.",
     imageUrl: "/images/zoma portada.png",
     technologies: ["Next.js 15", "Supabase", "Mercado Pago", "AFIP API"],
+    status: "En Producción",
   },
   {
     id: "3",
@@ -31,6 +33,7 @@ const featuredProjects = [
     description: "Plataforma e-commerce Headless a medida con sincronización de Mercado Libre, checkout de Mercado Pago, Andreani Envíos y panel de analíticas en tiempo real.",
     imageUrl: "/images/anamary-home.png",
     technologies: ["Next.js 16", "React 19", "Supabase", "Mercado Libre API", "Mercado Pago API", "Andreani API"],
+    status: "En Producción",
   },
   {
     id: "4",
@@ -39,6 +42,7 @@ const featuredProjects = [
     description: "Ecosistema digital completo con catálogo de productos de alta gama y dos portales de administración (Catálogo y CRM Comercial).",
     imageUrl: "/images/Five Saint.png",
     technologies: ["Next.js 16", "TypeScript", "Tailwind CSS", "Framer Motion", "Supabase"],
+    status: "En Desarrollo",
   },
 ]
 

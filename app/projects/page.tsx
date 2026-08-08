@@ -13,6 +13,7 @@ const allProjects: ProjectType[] = [
     description: "Plataforma SaaS para gestión inteligente de stock y ventas. Incluye automatizaciones con IA y sincronización en tiempo real.",
     imageUrl: "/images/klyvo imagen portada.png",
     technologies: ["Next.js", "Supabase", "OpenAI", "API Mercado Libre", "API WhatsApp", "Mercado Pago"],
+    status: "En Testeo",
   },
   {
     id: "2",
@@ -21,6 +22,7 @@ const allProjects: ProjectType[] = [
     description: "Plataforma SaaS con arquitectura de cuatro portales especializados para administración, preventistas mobile, clientes y contadores, con integración fiscal y pasarela de pago.",
     imageUrl: "/images/zoma portada.png",
     technologies: ["Next.js 15", "Supabase", "Mercado Pago API", "AFIP API", "Websockets"],
+    status: "En Producción",
   },
   {
     id: "3",
@@ -29,6 +31,7 @@ const allProjects: ProjectType[] = [
     description: "Plataforma de comercio electrónico Headless a medida, de alto rendimiento y arquitectura modular. Combina una experiencia de usuario premium con Mercado Libre, Mercado Pago y Andreani.",
     imageUrl: "/images/anamary-home.png",
     technologies: ["Next.js 16", "React 19", "Supabase", "Mercado Libre API", "Mercado Pago API", "Andreani API"],
+    status: "En Producción",
   },
   {
     id: "5",
@@ -37,6 +40,7 @@ const allProjects: ProjectType[] = [
     description: "Ecosistema digital completo con catálogo de productos de alta gama y dos portales de administración (Catálogo y CRM Comercial).",
     imageUrl: "/images/Five Saint.png",
     technologies: ["Next.js 16", "TypeScript", "Tailwind CSS", "Supabase"],
+    status: "En Desarrollo",
   },
 ]
 

@@ -12,6 +12,7 @@ export interface ProjectType {
   description: string;
   imageUrl: string;
   technologies: string[];
+  status?: string;
 }
 
 export function ProjectCard({ project }: { project: ProjectType }) {
@@ -27,6 +28,27 @@ export function ProjectCard({ project }: { project: ProjectType }) {
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        
+        {project.status && (
+          <div className="absolute top-3 right-3 z-10">
+            <Badge className={`text-[10px] px-2 py-0.5 font-semibold border shadow-sm backdrop-blur-md rounded-full ${
+                project.status.includes("Producción") 
+                ? "bg-emerald-500/90 text-white dark:text-emerald-50 border-emerald-500/20"
+                : project.status.includes("Testeo") || project.status.includes("Desarrollo")
+                ? "bg-amber-500/90 text-white dark:text-amber-50 border-amber-500/20"
+                : "bg-zinc-800/90 text-zinc-100 border-zinc-700"
+            }`}>
+              <span className={`w-1.5 h-1.5 rounded-full mr-1.5 inline-block ${
+                project.status.includes("Producción")
+                  ? "bg-white animate-pulse"
+                  : project.status.includes("Testeo") || project.status.includes("Desarrollo")
+                  ? "bg-white animate-pulse"
+                  : "bg-zinc-400"
+              }`} />
+              {project.status}
+            </Badge>
+          </div>
+        )}
       </div>
       <CardHeader className="pb-3">
         <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">{project.title}</CardTitle>
