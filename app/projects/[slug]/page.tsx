@@ -3,17 +3,17 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { 
-  ArrowLeft, 
-  ExternalLink, 
-  Shield, 
-  Cpu, 
-  Layers, 
-  Boxes, 
-  CreditCard, 
-  Clock, 
-  Sparkles, 
-  FolderCode, 
+import {
+  ArrowLeft,
+  ExternalLink,
+  Shield,
+  Cpu,
+  Layers,
+  Boxes,
+  CreditCard,
+  Clock,
+  Sparkles,
+  FolderCode,
   ChevronRight,
   Target
 } from "lucide-react"
@@ -766,7 +766,6 @@ registro += formatAfipAmount(iva)                       // 145-159: IVA Liquidad
     imageUrl: "/images/anamary-home.png",
     images: [
       { url: "/images/anamary-home.png", caption: "Home Page: Catálogo premium de joyas con animaciones fluidas y diseño responsivo." },
-      { url: "/images/anamary-admin.png", caption: "Panel de Analíticas: Indicador online en tiempo real, desglose geográfico e histórico de visitas y ventas." },
       { url: "/images/Analiticas Ana Mary Joyas.png", caption: "Analíticas Avanzadas: Dashboard de métricas en Ana Mary Joyas." },
       { url: "/images/Edicion Bloques Ana Mary Joyas.png", caption: "Panel Administrativo: Edición de bloques y contenido dinámico." }
     ],
@@ -1229,20 +1228,18 @@ export default async function ProjectDetailPage(props: { params: Promise<{ slug:
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">{project.title}</h1>
               {project.status && (
-                <Badge className={`text-xs px-2.5 py-1 font-semibold border rounded-full ${
-                  project.status.includes("Producción") 
+                <Badge className={`text-xs px-2.5 py-1 font-semibold border rounded-full ${project.status.includes("Producción")
                     ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
                     : project.status.includes("Testeo")
-                    ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
-                    : "bg-zinc-500/10 text-zinc-600 dark:text-zinc-400 border-zinc-500/20"
-                }`}>
-                  <span className={`w-1.5 h-1.5 rounded-full mr-1.5 inline-block ${
-                    project.status.includes("Producción")
+                      ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                      : "bg-zinc-500/10 text-zinc-600 dark:text-zinc-400 border-zinc-500/20"
+                  }`}>
+                  <span className={`w-1.5 h-1.5 rounded-full mr-1.5 inline-block ${project.status.includes("Producción")
                       ? "bg-emerald-500 animate-pulse"
                       : project.status.includes("Testeo")
-                      ? "bg-amber-500 animate-pulse"
-                      : "bg-zinc-500"
-                  }`} />
+                        ? "bg-amber-500 animate-pulse"
+                        : "bg-zinc-500"
+                    }`} />
                   {project.status}
                 </Badge>
               )}
@@ -1381,8 +1378,8 @@ export default async function ProjectDetailPage(props: { params: Promise<{ slug:
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {project.keyFeatures.map((feat) => (
-              <div 
-                key={feat.title} 
+              <div
+                key={feat.title}
                 className="bg-card hover:bg-muted/20 border border-border/60 hover:border-primary/40 rounded-xl p-6 transition-all duration-300 flex flex-col"
               >
                 <div className="mb-4">
@@ -1396,7 +1393,7 @@ export default async function ProjectDetailPage(props: { params: Promise<{ slug:
                       const colonIndex = item.indexOf(":")
                       const title = colonIndex !== -1 ? item.substring(0, colonIndex + 1) : ""
                       const desc = colonIndex !== -1 ? item.substring(colonIndex + 1) : item
-                      
+
                       return (
                         <li key={index} className="flex items-start gap-2 text-muted-foreground">
                           <span className="text-primary shrink-0 mt-1 text-[10px]">&bull;</span>
