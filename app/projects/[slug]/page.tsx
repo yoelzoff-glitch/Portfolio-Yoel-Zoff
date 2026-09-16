@@ -36,142 +36,156 @@ interface DetailedProject {
   architecture: string
   challenges: string
   results: string
-  // Campos opcionales para proyectos avanzados como Klyvo
+  // Campos opcionales para proyectos avanzados como LibretaX
   businessPotential?: { title: string; description: string }[]
   keyFeatures?: { title: string; description: string; items?: string[] }[]
   projectStructure?: { title: string; filepath?: string; description?: string }[]
   codeShowcases?: { title: string; filepath?: string; description: string; code: string; language: string }[]
 }
 
-const projectData: Record<string, DetailedProject> = {
-  "klyvo": {
-    title: "Klyvo 📦🤖",
-    description: "SaaS de Gestión Inteligente y Automatización para Mercado Libre",
-    content: "Klyvo (también conocido internamente como Stockly) es una plataforma SaaS (Software as a Service) empresarial diseñada para transformar la gestión operativa de vendedores en Mercado Libre. No es un simple gestor de inventario; es un operador inteligente del negocio que combina flujos automatizados de back-office con una interfaz conversacional avanzada impulsada por Inteligencia Artificial (Web y WhatsApp) y analítica de rentabilidad de precisión unitaria.",
-    imageUrl: "/images/klyvo imagen portada.png",
-    images: [
-      { url: "/images/klyvo-dashboard-v2.png", caption: "Dashboard Principal: Métricas de ventas, stock y facturación en tiempo real." },
-      { url: "/images/klyvo-finanzas.png", caption: "Métricas Financieras: Panel de control de ingresos diarios y ganancias netas." }
-    ],
-    technologies: ["Next.js 14 App Router", "Supabase (PostgreSQL / Auth)", "Inngest (Background Jobs)", "OpenAI (GPT-4o, Whisper)", "Vercel AI SDK", "Mercado Libre API", "Mercado Pago API", "WhatsApp Cloud API", "Tailwind CSS", "shadcn/ui"],
-    demoUrl: "https://stockly-six-opal.vercel.app/",
-    githubUrl: "#",
-    status: "En Testeo (Lanzamiento en ~24 días - Cuentas Reales ML)",
-    problem: "Los vendedores de Mercado Libre operan con procesos muy manuales: gestionar el catálogo, analizar a la competencia, calcular la rentabilidad neta real (contemplando fees, envíos e impuestos) y administrar el negocio a través de sistemas legacy lentos sin automatizaciones.",
-    solution: "Construí un SaaS integral con integración OAuth Multi-tenant de Mercado Libre. Cuenta con un panel de control avanzado que permite ver ventas en tiempo real, analizar competidores directos y calcular el margen de ganancia real exacto de cada producto. Además, integré un Agente de IA capaz de recibir órdenes por notas de voz en WhatsApp para interactuar directamente con la API de ML (cambiar precios, pausar productos).",
-    architecture: "El backend funciona sobre Next.js (Server Actions / Route Handlers) conectado a Supabase con Row Level Security para el aislamiento estricto de datos de cada cliente. Inngest maneja los trabajos en segundo plano (cron jobs) para la sincronización automática del stock y órdenes. El Billing está orquestado con Mercado Pago Webhooks, y la IA usa Vercel AI SDK con GPT-4o y Whisper para transcripciones de audio.",
-    challenges: "Implementar un manejo automático e ininterrumpido de Tokens de Mercado Libre en background, la sincronización de órdenes y productos sin cuellos de botella (a través de Inngest), y la orquestación segura del Agente de IA para que pueda ejecutar acciones ('Tools') sobre bases de datos de producción (modificar costos, cambiar precios en ML) de manera autónoma y libre de alucinaciones.",
-    results: "Klyvo unifica el control de la empresa en un solo lugar. Gracias al cálculo de rentabilidad neta, análisis de competencia y la Inteligencia Artificial operando 24/7 vía WhatsApp, las PyMEs pueden escalar su negocio optimizando sus ganancias y reduciendo drásticamente su carga operativa.",
-    businessPotential: [
-      {
-        title: "Prevención de Errores Operativos Críticos",
-        description: "Automatiza cambios de stock y precio reduciendo a cero el riesgo de bloqueos o pérdidas por errores humanos gracias a su motor dinámico de estimación de riesgo."
-      },
-      {
-        title: "Cálculo Real de Rentabilidad Unitario",
-        description: "Deduce en tiempo real las tarifas de Mercado Libre, costos de envío estimados, impuestos, costos financieros de cuotas (campañas de cuotas) y promociones, indicando el margen neto real de cada producto."
-      },
-      {
-        title: "Control Ubicuo (Omnicanalidad con AI)",
-        description: "Permite al vendedor auditar su negocio, cambiar precios, pausar publicaciones u obtener reportes de ventas consolidadas en lenguaje natural enviando mensajes de texto o notas de voz directamente desde su celular a través de WhatsApp Cloud API."
-      }
-    ],
-    keyFeatures: [
-      {
-        title: "1. Integración Resiliente con Mercado Libre (Core API)",
-        description: "Integración robusta diseñada para operar de forma continua bajo escenarios inestables:",
-        items: [
-          "Tolerancia a Fallos y Autocuración de Credenciales: Gestor dinámico de tokens OAuth con auto-refresh transparente si expira en menos de 10 min o arroja error 401. Si falla definitivamente, degrada el tenant a estado de error y genera alertas y audit_logs.",
-          "Control de Concurrencia y Rate Limiting: Previene bloqueos por cuotas API de Mercado Libre (HTTP 429) limitando la concurrencia a un máximo de 5 llamadas en segundo plano con delays de 100ms.",
-          "Sincronización Inteligente en Paralelo: Procesamiento asíncrono y aislado por inquilino mediante Promise.allSettled para que problemas de un usuario no bloqueen a los demás."
-        ]
-      },
-      {
-        title: "2. Motor de Inteligencia Artificial (OpenAI + Whisper + Vercel AI SDK)",
-        description: "Operador comercial inteligente accesible a través de interfaces de lenguaje natural:",
-        items: [
-          "Comprensión Conversacional Multi-Turno: Almacena de forma persistente el historial del chat para inferir el contexto y entidades en consultas secuenciales ('¿Cuánto vendí hoy?' -> '¿Y cuáles fueron los productos?').",
-          "Slot Filling Inteligente: Extracción automática de entidades necesarias. Interrumpe el flujo si faltan parámetros, preguntando educadamente al usuario y parseando la información de manera estructurada.",
-          "Procesamiento de Voz Multicanal: Transcripción en tiempo real de audios de WhatsApp y Web mediante OpenAI Whisper-1."
-        ]
-      },
-      {
-        title: "3. Barreras de Seguridad y Prevención de Errores (Error Prevention Engine)",
-        description: "Reglas rígidas y análisis heurístico para salvaguardar el negocio de fallas operativas:",
-        items: [
-          "Evaluación Dinámica de Riesgo: Clasifica operaciones de escritura en LOW, MEDIUM o HIGH. Modificaciones masivas de stock o alteraciones grandes de precio se marcan como alto riesgo.",
-          "Límites Estrictos de Seguridad: Bloquea automáticamente variaciones de precio superiores al 30% del valor actual. Modificaciones masivas remotas limitadas a un tope de 50 productos.",
-          "Intersector de Confirmación de Dos Pasos: Acciones críticas quedan en cola ('pending'). El sistema intercepta y rechaza respuestas informales ('ok', 'dale', 'si') obligando a escribir textualmente 'confirmo' o 'confirmar'."
-        ]
-      },
-      {
-        title: "4. Inventario de Depósito Basado en Componentes (BOM & Sales Velocity)",
-        description: "Gestión inteligente y automatizada de almacén e insumos físicos:",
-        items: [
-          "Relación N-a-M de Componentes: Mapea componentes y materias primas a múltiples publicaciones finales. Al venderse un producto de ML, descuenta proporcionalmente los insumos del depósito.",
-          "Reabastecimiento Predictivo: Analiza la velocidad de ventas de los últimos 30 días, proyecta el consumo futuro de materia prima y recomienda compras ajustadas a un 20% de stock de seguridad."
-        ]
-      },
-      {
-        title: "5. Suscripciones y Facturación (Mercado Pago API)",
-        description: "Pasarela y control comercial SaaS integrado:",
-        items: [
-          "Pasarela de Cobro Automatizada: Control de acceso a planes (Starter, Pro, Ultra) mediante estado de suscripción en Mercado Pago.",
-          "Manejo de Períodos de Gracia: En cancelaciones voluntarias, se mantiene el acceso premium activo hasta la fecha exacta de vencimiento original (expires_at) antes de degradar."
-        ]
-      },
-      {
-        title: "6. Workers Serverless en Segundo Plano (Inngest Queues)",
-        description: "Orquestación asíncrona distribuida:",
-        items: [
-          "Procesamiento Inmune a Timeouts: Sincronizaciones recurrentes (órdenes cada 5 min, productos cada 15 min) delegadas a colas de Inngest, evitando limitaciones de tiempo de las Edge Functions de Vercel."
-        ]
-      }
-    ],
-    projectStructure: [
-      {
-        title: "src/app/",
-        filepath: "src/app/",
-        description: "Contiene las rutas principales del frontend (Next.js App Router) y los Server Actions."
-      },
-      {
-        title: "src/app/api/",
-        filepath: "src/app/api/",
-        description: "Webhooks y APIs públicas de integración (Mercado Pago, WhatsApp, Mercado Libre)."
-      },
-      {
-        title: "src/app/dashboard/",
-        filepath: "src/app/dashboard/",
-        description: "Vistas y paneles interactivos del cliente (Ventas, Finanzas, Inventario, IA)."
-      },
-      {
-        title: "src/components/",
-        filepath: "src/components/",
-        description: "Componentes visuales y lógicos reutilizables de la aplicación."
-      },
-      {
-        title: "src/services/ai/",
-        filepath: "src/services/ai/",
-        description: "Orquestador de agentes de IA, Whisper y interceptores de confirmaciones de dos pasos."
-      },
-      {
-        title: "src/services/meli/",
-        filepath: "src/services/meli/",
-        description: "Lógica de llamadas API a Mercado Libre, refresco de tokens OAuth y encolado de peticiones."
-      },
-      {
-        title: "src/jobs/",
-        filepath: "src/jobs/",
-        description: "Definición de sincronizaciones en segundo plano gestionadas con Inngest."
-      }
-    ],
-    codeShowcases: [
-      {
-        title: "Cliente de Mercado Libre Auto-Sanable y Resiliente",
-        filepath: "src/services/meli/client.ts",
-        description: "Muestra cómo Klyvo automatiza la renovación de tokens OAuth caducados y gestiona errores 401 Unauthorized de forma transparente a mitad del flujo de petición, registrando alertas en base de datos si ocurre un fallo permanente.",
-        language: "typescript",
-        code: `// Fragmento simplificado del wrapper del cliente HTTP de Mercado Libre
+const libretaxProject: DetailedProject = {
+  title: "LibretaX 📦📊",
+  description: "Plataforma SaaS Multi-Tenant de Gestión, Inventario Físico y Rentabilidad para Vendedores de Mercado Libre",
+  content: "LibretaX (evolución integral de Klyvo / Stockly) es una plataforma SaaS multi-tenant de alto rendimiento diseñada para centralizar la operativa comercial, el control exhaustivo de inventario físico y el cálculo de rentabilidad neta en tiempo real ('Bolsillo Limpio') para vendedores profesionales del ecosistema de Mercado Libre. Combina sincronización asíncrona resiliente mediante webhooks, auditoría contable por publicación, control de depósitos físicos con desglose de insumos (BOM), analítica de Mercado Libre ADS y herramientas de inteligencia artificial aplicada bajo estrictos controles transaccionales, de cuota y seguridad multi-tenant RLS.",
+  imageUrl: "/images/libretax-portada.png",
+  images: [
+    { url: "/images/libretax-wordmark-dark.png", caption: "Logo Oficial de LibretaX: Identidad de marca de la plataforma SaaS para Mercado Libre." },
+    { url: "/images/klyvo-dashboard-v2.png", caption: "Dashboard Principal: KPIs en tiempo real (Facturación bruta, Bolsillo Limpio, margen consolidado, alertas de stock crítico y top de productos)." },
+    { url: "/images/klyvo-finanzas.png", caption: "Finanzas y P&L: Estado de resultados completo con comisiones ML discriminadas, costos de envío bonificados, CMV e impuestos." }
+  ],
+  technologies: ["Next.js 16 (App Router, Turbopack)", "React 19", "Tailwind CSS 4", "Supabase (PostgreSQL 16 / RLS)", "Inngest 4.4 (Workers & Cron)", "OpenAI API (GPT-4o-mini)", "Google Generative AI (Gemini 1.5 Flash)", "Mercado Libre API (OAuth2, Items, Orders, Promos, Ads)", "Mercado Pago SDK", "WhatsApp Cloud API", "Playwright", "TypeScript 6"],
+  demoUrl: "https://stockly-six-opal.vercel.app/",
+  githubUrl: "https://github.com/yoelzoff-glitch/Stockly.git",
+  status: "Release Candidate — Listo para Producción",
+  problem: "Vender a escala en Mercado Libre presenta desafíos críticos que afectan directamente la rentabilidad: falta de visibilidad sobre el margen neto real tras deducir comisiones variables por categoría y tipo de publicación (Clásica vs Premium), costos dinámicos de envíos bonificados, cargos por financiamiento en cuotas, retenciones impositivas y CMV. A ello se suma la desconexión entre el stock publicado y el inventario físico real en depósito propio (insumos, embalajes, kits/combos), herramientas fragmentadas en planillas de cálculo propensas a errores humanos y el alto riesgo operativo de administrar múltiples cuentas sin colisiones.",
+  solution: "LibretaX unifica toda la operativa comercial en una consola gerencial integral con sincronización asíncrona bidireccional vía webhooks e idempotencia estricta. Brinda desglose contable unitario por orden con cálculo en tiempo real del 'Bolsillo Limpio', administración de depósito físico desacoplado con listas de materiales (BOM) y rotación multi-período (mes en curso, 30, 60 y 90 días), corte contable inteligente de presupuestos de gastos diarios preservando el historial acumulado, analítica de rentabilidad publicitaria neta en Mercado Libre ADS y el Copiloto Operacional IA (Web y WhatsApp) con doble factor de confirmación ('confirmo') para acciones críticas de catálogo.",
+  architecture: "Monolito modular serverless de alta disponibilidad montado sobre Next.js 16 (App Router con Turbopack) y Supabase (PostgreSQL 16). La seguridad multi-tenant se sustenta en Row Level Security (RLS) estricto en 44 tablas canónicas, complementado con una doble barrera en Server Actions y Route Handlers ('requireTenantContext' y 'assertRequestedTenant'). Las tareas de cómputo intensivo y sincronizaciones de background son orquestadas por Inngest (12 funciones de workers y cron jobs) con un sistema de leases distribuidos ('acquire_operation_lease') para prevenir condiciones de carrera. Se conecta con OpenAI y Google Gemini para el copiloto conversacional, Mercado Libre con renovación atómica de credenciales OAuth2, Mercado Pago para suscripciones recurrentes y WhatsApp Cloud API validada mediante firmas criptográficas X-Hub-Signature-256.",
+  challenges: "Garantizar aislamiento hermético de datos multi-tenant respaldado por suites de auditoría automatizada ('audit:rls', 'audit:auth'), gestionar la resiliencia de la API de Mercado Libre con auto-refresh transparente ante respuestas 401 y reintentos con retroceso exponencial respetando la cabecera 'Retry-After', ejecutar consumos atómicos de cuotas de IA mediante RPCs transaccionales en PostgreSQL ('consume_tenant_quota'), diseñar el corte contable de gastos diarios congelando el acumulado previo sin recalcular retroactivamente la caja, y sostener una cobertura rigurosa con +430 tests unitarios y pruebas E2E con Playwright.",
+  results: "Plataforma consolidada en Release Candidate con suites de auditoría aprobadas y lista para el onboarding de comercios piloto y producción comercial. Garantiza exportación contable en streaming (CSV) adaptada a estudios impositivos, eliminación de quiebres imprevistos de inventario físico gracias a la explosión de kits BOM y alertas de reposición, control exacto del ROAS y ACOS publicitario, y una reducción drástica de la carga operativa mediante automatizaciones y copiloto IA 24/7.",
+  businessPotential: [
+    {
+      title: "Métricas de 'Bolsillo Limpio' y P&L en Tiempo Real",
+      description: "Conciliación financiera automática desde la facturación bruta hasta el resultado neto libre tras liquidar comisiones de Mercado Libre, envíos bonificados, descuentos comerciales, CMV, retenciones impositivas (IIBB) y costos operativos fijos."
+    },
+    {
+      title: "Depósito Físico Desacoplado con Estructura BOM",
+      description: "Gestión de stock físico independiente del catálogo de Mercado Libre. Soporte para productos compuestos y kits con explosión automática de materias primas/packaging y métricas de velocidad de venta en ventanas de 30, 60 y 90 días."
+    },
+    {
+      title: "Copiloto Operacional IA Multi-Canal (Web & WhatsApp)",
+      description: "Asistente inteligente con GPT-4o-mini y Gemini 1.5 Flash para responder consultas operativas en lenguaje natural, sugerir títulos SEO y analizar a la competencia, protegido por confirmación explícita obligatoria ('confirmo') para modificaciones en catálogo."
+    },
+    {
+      title: "Contabilidad de Gastos con Corte Diario Inteligente",
+      description: "Gastos fijos, alícuotas impositivas y gastos de acumulación diaria con IVA 21%. Permite actualizar presupuestos a mitad de mes congelando el valor anterior en el historial sin alterar retroactivamente los días transcurridos."
+    }
+  ],
+  keyFeatures: [
+    {
+      title: "1. Módulo Operación & Dashboard en Tiempo Real",
+      description: "Centro neurálgico para supervisión comercial, logística y contingencias:",
+      items: [
+        "Dashboard Gerencial: Visualización en tiempo real de facturación bruta, Bolsillo Limpio, margen consolidado, ticket promedio y alertas preventivas de stock crítico.",
+        "Desglose Contable por Orden: Auditoría unitaria con discriminación de comisiones (Clásica vs Premium), costos de envío asumidos, CMV e impuestos.",
+        "Exportación Contable en Streaming: Generación ultraveloz de reportes CSV preparados para contadores y sistemas contables externos.",
+        "Cancelaciones & Devoluciones: Reversión automática e inmediata de unidades al inventario físico y reconciliación contable de comisiones de Mercado Libre."
+      ]
+    },
+    {
+      title: "2. Módulo Catálogo & Depósito Físico con BOM",
+      description: "Sincronización de publicaciones y control riguroso de inventario real:",
+      items: [
+        "Estructura de Insumos y Componentes (BOM): Relación N-a-M para costeo dinámico y explosión de kits en componentes unitarios al descontar existencias por venta.",
+        "Kárdex de Movimientos Auditable: Historial detallado de entradas por compras a proveedores, salidas por ventas, mermas y ajustes manuales con motivo.",
+        "Análisis de Rotación Multi-Período: Velocidad de venta en mes en curso, últimos 30, 60 y 90 días para planificar compras inteligentes y evitar quiebres.",
+        "Simulador de Precios y Márgenes: Proyección interactiva de comisiones, fletes, impuestos y ganancia neta antes de modificar precios en Mercado Libre."
+      ]
+    },
+    {
+      title: "3. Módulo Rentabilidad, Finanzas (P&L) & Mercado Libre ADS",
+      description: "Auditoría de resultados económicos y eficiencia en publicidad:",
+      items: [
+        "Estado de Resultados Completo (P&L): Trazabilidad desde ingreso bruto hasta el margen de caja limpio porcentual.",
+        "Corte Inteligente de Presupuestos Diarios: Congela la tarifa previa hasta el día anterior y aplica la nueva a partir de hoy, preservando la exactitud del acumulado.",
+        "Mercado Libre ADS (Publicidad): Métricas de inversión, impresiones, clics, ACOS y ROAS en tiempo real, cruzando venta atribuida con CMV para calcular el beneficio publicitario neto.",
+        "Seller Promotions API: Monitoreo de ofertas relámpago y cupones con discriminación de subsidio (vendedor vs Mercado Libre) y protección de margen mínimo."
+      ]
+    },
+    {
+      title: "4. Copiloto Operacional IA & Guardrails de Seguridad",
+      description: "Asistente con inteligencia artificial integrado en Web y WhatsApp Cloud:",
+      items: [
+        "Consultas Operativas en Lenguaje Natural: Respuestas inmediatas con datos reales sobre ventas, productos con stock en riesgo y publicaciones más rentables.",
+        "Doble Factor de Confirmación Obligatorio: Intercepta y rechaza respuestas informales ('ok', 'dale') forzando al usuario a escribir 'confirmo' antes de alterar precios o publicaciones.",
+        "Deducción Atómica de Cuotas: RPCs transaccionales 'consume_tenant_quota' vinculadas al hash del payload para prevenir duplicados y sobreconsumos.",
+        "Auditoría SEO & Competencia: Generación de títulos optimizados para el buscador de Mercado Libre y comparativa de publicaciones rivales."
+      ]
+    },
+    {
+      title: "5. Arquitectura Técnica & Seguridad Multi-Tenant",
+      description: "Aislamiento hermético de datos y resiliencia en infraestructura:",
+      items: [
+        "Row Level Security (RLS) en 44 Tablas: Políticas PostgreSQL forzadas al tenant_id de la sesión autenticada.",
+        "Doble Barrera de Aplicación: Verificación obligatoria en cada Server Action y Route Handler mediante 'requireTenantContext' y 'assertRequestedTenant'.",
+        "Firmas Criptográficas de Webhooks: Validación timingSafeEqual de firmas X-Hub-Signature-256 (WhatsApp) y firmas V2 (Mercado Pago).",
+        "Leases Distribuidos: Candados en base de datos ('acquire_operation_lease') para evitar colisiones de ejecución concurrente en procesos pesados."
+      ]
+    },
+    {
+      title: "6. Resiliencia de APIs Externas & Background Workers",
+      description: "Tolerancia a fallos, reintentos inteligentes y testing exhaustivo:",
+      items: [
+        "Auto-Sanación OAuth de Mercado Libre: Auto-refresh de tokens próximos a expirar y manejo transparente de errores 401 a mitad de petición.",
+        "Clasificador de Errores Externos: Falla rápida en errores no reintentables y reintentos automáticos con backoff exponencial respetando Retry-After.",
+        "12 Workers Inngest Registrados: Tareas asíncronas de sincronización periódica desacopladas de límites de tiempo de funciones serverless.",
+        "+430 Tests & Suites de Auditoría: Pipeline de calidad con tests unitarios, suites 'audit:rls', 'audit:auth', 'audit:webhooks' y pruebas E2E con Playwright."
+      ]
+    }
+  ],
+  projectStructure: [
+    {
+      title: "src/app/",
+      filepath: "src/app/",
+      description: "Rutas principales con Next.js 16 App Router, layouts protegidos multi-tenant y Server Actions."
+    },
+    {
+      title: "src/app/api/webhooks/",
+      filepath: "src/app/api/webhooks/",
+      description: "Endpoints criptográficamente auditados para webhooks de Mercado Libre, Mercado Pago y WhatsApp."
+    },
+    {
+      title: "src/app/dashboard/",
+      filepath: "src/app/dashboard/",
+      description: "Módulos de Operación, Catálogo & BOM, Depósito Físico, Finanzas (P&L), Gastos y Copiloto IA."
+    },
+    {
+      title: "src/services/meli/",
+      filepath: "src/services/meli/",
+      description: "Cliente HTTP resiliente con auto-refresh OAuth, reintentos exponenciales y adaptadores de catálogo y órdenes."
+    },
+    {
+      title: "src/services/inventory/",
+      filepath: "src/services/inventory/",
+      description: "Kárdex de movimientos, cálculo de BOM (insumos y combos) y análisis de rotación multi-período."
+    },
+    {
+      title: "src/services/ai/",
+      filepath: "src/services/ai/",
+      description: "Orquestación multi-modelo (GPT-4o-mini & Gemini 1.5 Flash), guardrails de seguridad y deducción atómica de cuotas."
+    },
+    {
+      title: "src/inngest/",
+      filepath: "src/inngest/",
+      description: "12 funciones de background workers (sincronizaciones periódicas, corte de presupuesto diario, digest por WhatsApp)."
+    }
+  ],
+  codeShowcases: [
+    {
+      title: "Cliente de Mercado Libre Auto-Sanable y Resiliente",
+      filepath: "src/services/meli/client.ts",
+      description: "Muestra cómo LibretaX automatiza la renovación de tokens OAuth caducados y gestiona errores 401 Unauthorized de forma transparente a mitad del flujo de petición, clasificando errores y registrando alertas en base de datos si ocurre un fallo permanente.",
+      language: "typescript",
+      code: `// Fragmento simplificado del wrapper del cliente HTTP de Mercado Libre
 export async function meliFetch({
   tenantId,
   meliAccountId,
@@ -246,13 +260,13 @@ export async function meliFetch({
 
   return response.json();
 }`
-      },
-      {
-        title: "Interceptor de Seguridad Conversacional (AI Agent Guardrails)",
-        filepath: "src/services/ai/agent.ts",
-        description: "Muestra la lógica de interceptación que fuerza al usuario a escribir exactamente la palabra 'confirmo' o 'confirmar' para poder ejecutar acciones destructivas previamente guardadas en cola, previniendo accidentes conversacionales e ignorando afirmaciones genéricas como 'ok' o 'dale'.",
-        language: "typescript",
-        code: `// Interceptor en el Orquestador del Agente de Inteligencia Artificial
+    },
+    {
+      title: "Interceptor de Seguridad Conversacional (LibretaX Copilot Guardrails)",
+      filepath: "src/services/ai/agent.ts",
+      description: "Muestra la lógica de interceptación que fuerza al usuario a escribir exactamente la palabra 'confirmo' o 'confirmar' para poder ejecutar acciones destructivas previamente encoladas, previniendo accidentes conversacionales e ignorando afirmaciones genéricas como 'ok' o 'dale'.",
+      language: "typescript",
+      code: `// Interceptor en el Orquestador del Agente de Inteligencia Artificial
 export async function runBusinessAgent({ tenantId, userMessage, channel, fromPhone }) {
   // ... validaciones de límites de consumo mensual ...
   const session = await getActiveSession({ tenantId, channel, fromPhone });
@@ -295,15 +309,15 @@ export async function runBusinessAgent({ tenantId, userMessage, channel, fromPho
     }
   }
   
-  // ... procesamiento normal del agente con OpenAI si no hay interceptaciones ...
+  // ... procesamiento normal del agente con OpenAI / Gemini si no hay interceptaciones ...
 }`
-      },
-      {
-        title: "Webhook de Facturación con Período de Gracia (Mercado Pago Webhook)",
-        filepath: "src/app/api/mercadopago/webhook/route.ts",
-        description: "Este webhook procesa las suscripciones de Mercado Pago y gestiona de forma segura el ciclo de facturación, asegurándose de respetar el período de gracia pagado en caso de cancelación voluntaria del plan premium.",
-        language: "typescript",
-        code: `// Controlador de Webhook de suscripciones de Mercado Pago
+    },
+    {
+      title: "Webhook de Facturación con Período de Gracia (Mercado Pago Webhook)",
+      filepath: "src/app/api/mercadopago/webhook/route.ts",
+      description: "Este webhook procesa las suscripciones de Mercado Pago y gestiona de forma segura el ciclo de facturación, asegurándose de respetar el período de gracia pagado en caso de cancelación voluntaria del plan premium.",
+      language: "typescript",
+      code: `// Controlador de Webhook de suscripciones de Mercado Pago
 export async function POST(req: Request) {
   try {
     const url = new URL(req.url);
@@ -326,7 +340,7 @@ export async function POST(req: Request) {
       const externalReference = subscription.external_reference || "";
       const [refType, refId] = externalReference.split("_"); // Ej. "tenant_uuid"
       const status = subscription.status; // 'authorized', 'paused', 'cancelled'
-      const plan = subscription.reason === 'Klyvo Ultra' ? 'ultra' : 'pro';
+      const plan = subscription.reason === 'LibretaX Ultra' ? 'ultra' : 'pro';
 
       if (refType && refId) {
         const supabase = createAdminClient();
@@ -368,13 +382,13 @@ export async function POST(req: Request) {
     return new NextResponse("Error", { status: 500 });
   }
 }`
-      },
-      {
-        title: "Velocidad de Ventas y Reabastecimiento (Smart Inventory)",
-        filepath: "src/app/dashboard/internal-stock/actions.ts",
-        description: "Acción del servidor que calcula el consumo de componentes de depósito (BOM) basado en órdenes históricas de los últimos 30 días, entregando sugerencias de reabastecimiento automáticas y ajustadas a un 20% de stock de seguridad.",
-        language: "typescript",
-        code: `// Server Action para obtener inventario con análisis de velocidad de ventas
+    },
+    {
+      title: "Velocidad de Ventas y Reabastecimiento (BOM & Smart Inventory)",
+      filepath: "src/app/dashboard/internal-stock/actions.ts",
+      description: "Acción del servidor que calcula el consumo de componentes de depósito (BOM) basado en órdenes históricas de los últimos 30 días, entregando sugerencias de reabastecimiento automáticas y ajustadas a un 20% de stock de seguridad.",
+      language: "typescript",
+      code: `// Server Action para obtener inventario con análisis de velocidad de ventas
 export async function getInventoryItems() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -429,9 +443,66 @@ export async function getInventoryItems() {
     };
   });
 }`
-      }
-    ]
-  },
+    },
+    {
+      title: "Corte de Presupuesto Diario Inteligente (Historial Preservado)",
+      filepath: "src/app/dashboard/expenses/actions.ts",
+      description: "Al actualizar la tarifa diaria de un gasto a mitad de mes, congela el gasto previo hasta la víspera (preservando los días transcurridos al costo anterior) y abre el nuevo gasto a partir de hoy, garantizando que el Bolsillo Limpio acumulado no sufra recálculos retroactivos erróneos.",
+      language: "typescript",
+      code: `// Server Action para actualizar gastos con acumulación diaria inteligente
+export async function updateDailyExpense({ tenantId, expenseId, newDailyAmount, effectiveFromToday = true }) {
+  const supabase = createAdminClient();
+  const todayStr = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+  const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
+
+  // 1. Obtener el gasto diario actual
+  const { data: currentExpense } = await supabase
+    .from("recurring_expenses")
+    .select("*")
+    .eq("id", expenseId)
+    .eq("tenant_id", tenantId)
+    .single();
+
+  if (!currentExpense) throw new Error("Gasto no encontrado");
+
+  // 2. Transacción de Corte: Congelar el gasto anterior hasta ayer
+  await supabase
+    .from("recurring_expenses")
+    .update({ 
+      end_date: yesterday,
+      is_active: false,
+      notes: \`Corte automático: congelado a \${currentExpense.amount}/día hasta \${yesterday}\`
+    })
+    .eq("id", expenseId);
+
+  // 3. Crear el nuevo gasto vigente desde hoy con la nueva tarifa
+  const { data: newExpense } = await supabase
+    .from("recurring_expenses")
+    .insert({
+      tenant_id: tenantId,
+      name: currentExpense.name,
+      category: currentExpense.category,
+      amount: newDailyAmount,
+      frequency: "daily",
+      applies_iva: currentExpense.applies_iva,
+      start_date: todayStr,
+      end_date: null,
+      is_active: true
+    })
+    .select()
+    .single();
+
+  // 4. Invalidar caché del Estado de Resultados (P&L) del mes en curso
+  await revalidateFinancials(tenantId);
+  return { success: true, newExpenseId: newExpense.id };
+}`
+    }
+  ]
+}
+
+const projectData: Record<string, DetailedProject> = {
+  "libretax": libretaxProject,
+  "klyvo": libretaxProject,
   "zoma": {
     title: "ZOMA ERP",
     description: "Sistema de Gestión Comercial SaaS Multi-Tenant con arquitectura de cuatro portales, facturación oficial AFIP e integración de Mercado Pago.",
@@ -1184,22 +1255,22 @@ export async function POST(req: NextRequest) {
 }
 
 const getFeatureIcon = (title: string) => {
-  if (title.includes("Integración") || title.includes("Mercado Libre")) {
+  if (title.includes("Integración") || title.includes("Mercado Libre") || title.includes("Operación") || title.includes("Dashboard")) {
     return <Cpu className="h-6 w-6 text-blue-500" />
   }
-  if (title.includes("Inteligencia") || title.includes("AI")) {
+  if (title.includes("Inteligencia") || title.includes("AI") || title.includes("Copiloto")) {
     return <Sparkles className="h-6 w-6 text-purple-500" />
   }
-  if (title.includes("Seguridad") || title.includes("Errores")) {
+  if (title.includes("Seguridad") || title.includes("Errores") || title.includes("Multi-Tenant") || title.includes("RLS")) {
     return <Shield className="h-6 w-6 text-rose-500" />
   }
-  if (title.includes("Inventario") || title.includes("Componentes")) {
+  if (title.includes("Inventario") || title.includes("Componentes") || title.includes("Catálogo") || title.includes("BOM") || title.includes("Depósito")) {
     return <Boxes className="h-6 w-6 text-amber-500" />
   }
-  if (title.includes("Suscripciones") || title.includes("Facturación")) {
+  if (title.includes("Suscripciones") || title.includes("Facturación") || title.includes("Rentabilidad") || title.includes("Finanzas") || title.includes("P&L")) {
     return <CreditCard className="h-6 w-6 text-emerald-500" />
   }
-  if (title.includes("Workers") || title.includes("Queues")) {
+  if (title.includes("Workers") || title.includes("Queues") || title.includes("Resiliencia") || title.includes("APIs")) {
     return <Clock className="h-6 w-6 text-indigo-500" />
   }
   return <Sparkles className="h-6 w-6 text-primary" />

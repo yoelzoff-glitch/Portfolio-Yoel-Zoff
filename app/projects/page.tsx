@@ -8,12 +8,12 @@ export const metadata = {
 const allProjects: ProjectType[] = [
   {
     id: "1",
-    slug: "klyvo",
-    title: "Klyvo - SaaS Multitenant",
-    description: "Plataforma SaaS para gestión inteligente de stock y ventas. Incluye automatizaciones con IA y sincronización en tiempo real.",
-    imageUrl: "/images/klyvo imagen portada.png",
-    technologies: ["Next.js", "Supabase", "OpenAI", "API Mercado Libre", "API WhatsApp", "Mercado Pago"],
-    status: "En Testeo",
+    slug: "libretax",
+    title: "LibretaX - SaaS Multi-Tenant para Mercado Libre",
+    description: "Plataforma SaaS para centralizar la operativa comercial, control exhaustivo de inventario físico (BOM) y cálculo de rentabilidad neta en tiempo real ('Bolsillo Limpio').",
+    imageUrl: "/images/libretax-portada.png",
+    technologies: ["Next.js 16", "Supabase (RLS)", "Inngest", "Mercado Libre API", "OpenAI & Gemini", "WhatsApp Cloud API", "Mercado Pago"],
+    status: "Release Candidate",
   },
   {
     id: "2",

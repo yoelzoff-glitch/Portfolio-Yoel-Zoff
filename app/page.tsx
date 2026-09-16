@@ -10,12 +10,12 @@ import { Code2, Server, Globe } from "lucide-react"
 const featuredProjects = [
   {
     id: "1",
-    slug: "klyvo",
-    title: "Klyvo - SaaS de Gestión Inteligente",
-    description: "Sistema SaaS multitenant para gestión integral de stock, automatización de ventas e integraciones avanzadas.",
-    imageUrl: "/images/klyvo imagen portada.png",
-    technologies: ["Next.js", "Supabase", "OpenAI", "Mercado Libre API", "WhatsApp API"],
-    status: "En Testeo",
+    slug: "libretax",
+    title: "LibretaX - SaaS de Gestión, Inventario y Rentabilidad",
+    description: "Plataforma SaaS multi-tenant para vendedores de Mercado Libre: cálculo en tiempo real de margen neto 'Bolsillo Limpio', control de stock físico con BOM y Copiloto Operacional IA.",
+    imageUrl: "/images/libretax-portada.png",
+    technologies: ["Next.js 16", "Supabase (RLS)", "Inngest", "Mercado Libre API", "OpenAI & Gemini", "WhatsApp API"],
+    status: "Release Candidate",
   },
   {
     id: "2",
