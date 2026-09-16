@@ -15,7 +15,7 @@ const featuredProjects = [
     description: "Plataforma SaaS multi-tenant para vendedores de Mercado Libre: cálculo en tiempo real de margen neto 'Bolsillo Limpio', control de stock físico con BOM y Copiloto Operacional IA.",
     imageUrl: "/images/libretax-portada.png",
     technologies: ["Next.js 16", "Supabase (RLS)", "Inngest", "Mercado Libre API", "OpenAI & Gemini", "WhatsApp API"],
-    status: "Release Candidate",
+    status: "En Producción",
   },
   {
     id: "2",

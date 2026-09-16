@@ -13,7 +13,7 @@ const allProjects: ProjectType[] = [
     description: "Plataforma SaaS para centralizar la operativa comercial, control exhaustivo de inventario físico (BOM) y cálculo de rentabilidad neta en tiempo real ('Bolsillo Limpio').",
     imageUrl: "/images/libretax-portada.png",
     technologies: ["Next.js 16", "Supabase (RLS)", "Inngest", "Mercado Libre API", "OpenAI & Gemini", "WhatsApp Cloud API", "Mercado Pago"],
-    status: "Release Candidate",
+    status: "En Producción",
   },
   {
     id: "2",
